@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="tvStatusPlaceholder">Placeholder text</string>
+    <string name="bShowResultsText">Show Results</string>
+    <string name="bExportDbText">Export DB</string>
+
+    <string name="status_PermissionNeeded">Location permission needed</string>
+    <string name="google_maps_key">AIzaSyBVamQIigDNbY-thMjrznQHi54ShaaUVqk</string>
+    <string name="status_ServiceStarted">Service started</string>
+    <string name="title_activity_results">Map</string>
+    <string name="toast_export_result_success">File exported successfully</string>
+
+    <string name="desc_task">Service that locates you in background</string>
+</resources>
