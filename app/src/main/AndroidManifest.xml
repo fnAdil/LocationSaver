@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplication">
+    package="com.example.GoogleBackgroundServiceApp">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature android:name="android.hardware.location.network" />
 
@@ -19,19 +20,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
 
-        <receiver android:name=".Services.LocationListenerBroadcast"
+        <receiver android:name="com.example.GoogleBackgroundServiceApp.BackgroundLocationBroadcast"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.myapplicastion.Services.LocationListenerBroadcast.ACTION_PROCESS_UPDATES" />
             </intent-filter>
         </receiver>
-        <service
-            android:name="MyNavigationService"
-            android:foregroundServiceType="location">
-        </service>
+        <service android:name="com.example.GoogleBackgroundServiceApp.GoogleService"></service>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.GoogleBackgroundServiceApp.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,14 +40,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
-        <activity
-            android:name=".ResultsActivity"
-            android:label="@string/title_activity_results">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myapplication.ResultsActivity" />
-        </activity>
 
 
     </application>

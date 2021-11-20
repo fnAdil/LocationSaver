@@ -1,10 +1,40 @@
 {
   "project_info": {
     "project_number": "450067110140",
+    "firebase_url": "https://locationsaver-903de-default-rtdb.firebaseio.com",
     "project_id": "locationsaver-903de",
     "storage_bucket": "locationsaver-903de.appspot.com"
   },
   "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450067110140:android:42a35822014fdf54ef5f79",
+        "android_client_info": {
+          "package_name": "com.example.GoogleBackgroundServiceApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450067110140-b5lorlvqvu06t5q7i3tm6plupo7p7g22.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnxy2Y1v2HAZRM3HW3fr35CEluHHulxyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450067110140-b5lorlvqvu06t5q7i3tm6plupo7p7g22.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:450067110140:android:fb876ead1c61a453ef5f79",
