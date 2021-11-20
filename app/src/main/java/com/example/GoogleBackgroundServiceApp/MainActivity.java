@@ -1,6 +1,7 @@
 package com.example.GoogleBackgroundServiceApp;
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     boolean boolean_permission;
     SharedPreferences mPref;
     Button btn_start;
-    TextView tv_address;
+    TextView textView_1;
     SharedPreferences.Editor medit;
     Double latitude,longitude;
 
@@ -44,72 +46,50 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn_start =  findViewById(R.id.button2);
-        tv_address= findViewById(R.id.textView_1);
+        textView_1= findViewById(R.id.textView_1);
         mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         medit = mPref.edit();
-        System.out.println("amınagoys1");
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
 
-        myRef.setValue("Hello, World!");
-
+        checkPermission();
 
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (boolean_permission) {
-                    System.out.println("gs1116");
-
-                    if (mPref.getString("service", "").matches("")) {
-                        medit.putString("service", "service").commit();
-                        System.out.println("gs1117");
-
-                        Intent intent = new Intent(getApplicationContext(), GoogleService.class);
-                        System.out.println("gs1118");
-                        startService(intent);
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Service is already running", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please enable the gps", Toast.LENGTH_SHORT).show();
-                }
-
+                checkPermission();
             }
         });
 
-        fn_permission();
+
     }
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    private void fn_permission() {
-        if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+    public void checkPermission(){
+        boolean_permission=!(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                != PackageManager.PERMISSION_GRANTED);
 
-            if ((ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_BACKGROUND_LOCATION))) {
+        if(!boolean_permission){
+            textView_1.setText(R.string.permissionMessage);
+            Toast.makeText(getApplicationContext(), "Lütfen konum servislerini aktifleştirin", Toast.LENGTH_SHORT).show();
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION},
+                    0);
 
-
-            } else {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION
-
-                        },
-                        REQUEST_PERMISSIONS);
-
-            }
-        } else {
-            boolean_permission = true;
+        }else{
+            Toast.makeText(getApplicationContext(), "Servis çalışır durumda", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), BackgroundLocationService.class);
+            startService(intent);
         }
+
+
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         switch (requestCode) {
             case REQUEST_PERMISSIONS: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     boolean_permission = true;
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Lütfen izinleri kabul edin", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -119,61 +99,30 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            System.out.println("11111111111111");
             if (intent!=null){
-                final String action = intent.getAction();
                 latitude = Double.valueOf(intent.getStringExtra("latutide"));
                 longitude = Double.valueOf(intent.getStringExtra("longitude"));
 
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-
-                ref.child("asd").setValue(2);
                 SimpleDateFormat shape = new SimpleDateFormat("y/M/d h:m:s");
                 Date date = new Date();
                 ref.child("location").child(shape.format(date)).child("lat").setValue(latitude);
                 ref.child("location").child(shape.format(date)).child("lon").setValue(longitude);
-
-                System.out.println("-------------------------------------------------------");
-                tv_address.setText(latitude.toString());
+                textView_1.setText("latitude: "+latitude.toString()+"\tlongitude: "+longitude.toString());
 
             }
-/*
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-
-
-            SimpleDateFormat shape = new SimpleDateFormat("y/M/d h:m:s");
-            Date date = new Date();
-            ref.child("location").child(shape.format(date)).child("lat").setValue(intent.getStringExtra("latutide"));
-            ref.child("location").child(shape.format(date)).child("lon").setValue(intent.getStringExtra("longitude"));
-
-            System.out.println("-------------------------------------------------------");
-
-            latitude = Double.valueOf(intent.getStringExtra("latutide"));
-            longitude = Double.valueOf(intent.getStringExtra("longitude"));
-            tv_address.getText();
-
-*/
         }
     };
 
     @Override
     protected void onResume() {
         super.onResume();
-        System.out.println("amınagoys3");
-     /*
-     * 11111
-     * 11111
-     * */
-        registerReceiver(broadcastReceiver, new IntentFilter( GoogleService.str_receiver));
-        System.out.println("amınagoys33333333333");
-
+        registerReceiver(broadcastReceiver, new IntentFilter( BackgroundLocationService.str_receiver));
     }
 
     @Override
     protected void onPause() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-
         super.onPause();
         unregisterReceiver(broadcastReceiver);
 

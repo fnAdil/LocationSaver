@@ -1,11 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="tvStatusPlaceholder">Placeholder text</string>
-    <string name="bShowResultsText">Show On Map</string>
     <string name="status_PermissionNeeded">Location permission is needed</string>
     <string name="google_maps_key">AIzaSyBVamQIigDNbY-thMjrznQHi54ShaaUVqk</string>
-    <string name="service_started">Location service is started</string>
-    <string name="title_activity_results">Map</string>
+    <string name="permissionMessage">Lütfen uygulama ayarlarından konum servislerine her zaman erişim izni verin!\n\nArdından START butonuna basın</string>
 
-    <string name="desc_task">Service that locates you in background</string>
 </resources>

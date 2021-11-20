@@ -20,13 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
 
-        <receiver android:name="com.example.GoogleBackgroundServiceApp.BackgroundLocationBroadcast"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.example.myapplicastion.Services.LocationListenerBroadcast.ACTION_PROCESS_UPDATES" />
-            </intent-filter>
-        </receiver>
-        <service android:name="com.example.GoogleBackgroundServiceApp.GoogleService"></service>
+        <service android:name="com.example.GoogleBackgroundServiceApp.BackgroundLocationService"></service>
 
         <activity
             android:name="com.example.GoogleBackgroundServiceApp.MainActivity"
