@@ -107,6 +107,7 @@ public class BackgroundLocationService extends Service implements LocationListen
 
                         fnUpdate(location);
                     }else{
+                       Toast.makeText(getApplicationContext(), "Lokasyon bilgisine erişilemiyor!", Toast.LENGTH_SHORT).show();
                        Log.e("uyarı: ","Lokasyona bilgisi yok");
                     }
                 }
