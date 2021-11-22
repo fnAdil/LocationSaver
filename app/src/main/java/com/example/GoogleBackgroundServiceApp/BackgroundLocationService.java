@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -93,6 +94,15 @@ public class BackgroundLocationService extends Service implements LocationListen
                 if (locationManager!=null){
                     location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     if (location!=null){
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        SimpleDateFormat shape = new SimpleDateFormat("y/M/d h:m:s");
+                        Date date = new Date();
+                        ref.child("location").child(shape.format(date)).child("lat").setValue(latitude);
+                        ref.child("location").child(shape.format(date)).child("lon").setValue(longitude);
+                        Log.e("latitude: ",latitude+"");
+                        Log.e("longitude: ",longitude+"");
+
+
                         fnUpdate(location);
                     }
                 }
@@ -105,6 +115,14 @@ public class BackgroundLocationService extends Service implements LocationListen
                 if (locationManager!=null){
                     location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     if (location!=null){
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        SimpleDateFormat shape = new SimpleDateFormat("y/M/d h:m:s");
+                        Date date = new Date();
+                        ref.child("location").child(shape.format(date)).child("lat").setValue(latitude);
+                        ref.child("location").child(shape.format(date)).child("lon").setValue(longitude);
+
+                        Log.e("latitude: ",latitude+"");
+                        Log.e("longitude: ",longitude+"");
 
                         fnUpdate(location);
                     }
