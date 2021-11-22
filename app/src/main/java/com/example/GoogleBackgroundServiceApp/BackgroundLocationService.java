@@ -102,6 +102,7 @@ public class BackgroundLocationService extends Service implements LocationListen
 
                         Log.e("latitude: ",location.getLatitude()+"");
                         Log.e("longitude: ",location.getLongitude()+"");
+                        Toast.makeText(getApplicationContext(), "Lokasyon: "+location.getLatitude()+"--"+location.getLongitude(), Toast.LENGTH_SHORT).show();
 
 
                         fnUpdate(location);
