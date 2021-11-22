@@ -93,45 +93,18 @@ public class BackgroundLocationService extends Service implements LocationListen
                 if (locationManager!=null){
                     location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     if (location!=null){
-                        latitude = location.getLatitude();
-                        longitude = location.getLongitude();
-                        Toast.makeText(getApplicationContext(), "Lokasyon: "+latitude+"--"+longitude, Toast.LENGTH_SHORT).show();
-                        Log.e("latitude: ",location.getLatitude()+"");
-                        Log.e("longitude: ",location.getLongitude()+"");
-
-                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-
-                        @SuppressLint("SimpleDateFormat") SimpleDateFormat shape = new SimpleDateFormat("y/M/d h:m:s");
-                        Date date = new Date();
-                        ref.child("location").child(shape.format(date)).child("lat").setValue(latitude);
-                        ref.child("location").child(shape.format(date)).child("lon").setValue(longitude);
-
                         fnUpdate(location);
-                    }else{
-                       Toast.makeText(getApplicationContext(), "Lokasyon bilgisine erişilemiyor!", Toast.LENGTH_SHORT).show();
-                       Log.e("uyarı: ","Lokasyona bilgisi yok");
                     }
                 }
 
             }
             //network yok fakat gps var ise
-            if (isGPSEnable&&!(isNetworkEnable)){
+            if (isGPSEnable){
                 location = null;
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,60000,0,this);
                 if (locationManager!=null){
                     location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     if (location!=null){
-                        latitude = location.getLatitude();
-                        longitude = location.getLongitude();
-                        Log.e("latitude: ",location.getLatitude()+"");
-                        Log.e("longitude: ",location.getLongitude()+"");
-
-                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-
-                        @SuppressLint("SimpleDateFormat") SimpleDateFormat shape = new SimpleDateFormat("y/M/d h:m:s");
-                        Date date = new Date();
-                        ref.child("location").child(shape.format(date)).child("lat").setValue(latitude);
-                        ref.child("location").child(shape.format(date)).child("lon").setValue(longitude);
 
                         fnUpdate(location);
                     }
