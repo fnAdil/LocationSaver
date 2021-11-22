@@ -95,6 +95,8 @@ public class BackgroundLocationService extends Service implements LocationListen
                     if (location!=null){
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
+                         Log.e("latitude: ",location.getLatitude()+"");
+                         Log.e("longitude: ",location.getLongitude()+"");
 
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
@@ -117,6 +119,8 @@ public class BackgroundLocationService extends Service implements LocationListen
                     if (location!=null){
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
+                         Log.e("latitude: ",location.getLatitude()+"");
+                         Log.e("longitude: ",location.getLongitude()+"");
 
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
