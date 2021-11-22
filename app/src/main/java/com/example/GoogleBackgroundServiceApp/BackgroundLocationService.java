@@ -106,6 +106,8 @@ public class BackgroundLocationService extends Service implements LocationListen
                         ref.child("location").child(shape.format(date)).child("lon").setValue(longitude);
 
                         fnUpdate(location);
+                    }else{
+                       Log.e("uyarı: ","Lokasyona bilgisi yok");
                     }
                 }
 
