@@ -97,10 +97,11 @@ public class BackgroundLocationService extends Service implements LocationListen
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         SimpleDateFormat shape = new SimpleDateFormat("y/M/d h:m:s");
                         Date date = new Date();
-                        ref.child("location").child(shape.format(date)).child("lat").setValue(latitude);
-                        ref.child("location").child(shape.format(date)).child("lon").setValue(longitude);
-                        Log.e("latitude: ",latitude+"");
-                        Log.e("longitude: ",longitude+"");
+                        ref.child("location").child(shape.format(date)).child("lat").setValue(location.getLatitude());
+                        ref.child("location").child(shape.format(date)).child("lon").setValue(location.getLongitude());
+
+                        Log.e("latitude: ",location.getLatitude()+"");
+                        Log.e("longitude: ",location.getLongitude()+"");
 
 
                         fnUpdate(location);
@@ -108,7 +109,6 @@ public class BackgroundLocationService extends Service implements LocationListen
                 }
 
             }
-            //network yok fakat gps var ise
             if (isGPSEnable){
                 location = null;
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,60000,0,this);
@@ -118,11 +118,11 @@ public class BackgroundLocationService extends Service implements LocationListen
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         SimpleDateFormat shape = new SimpleDateFormat("y/M/d h:m:s");
                         Date date = new Date();
-                        ref.child("location").child(shape.format(date)).child("lat").setValue(latitude);
-                        ref.child("location").child(shape.format(date)).child("lon").setValue(longitude);
+                        ref.child("location").child(shape.format(date)).child("lat").setValue(location.getLatitude());
+                        ref.child("location").child(shape.format(date)).child("lon").setValue(location.getLongitude());
 
-                        Log.e("latitude: ",latitude+"");
-                        Log.e("longitude: ",longitude+"");
+                        Log.e("latitude: ",location.getLatitude()+"");
+                        Log.e("longitude: ",location.getLongitude()+"");
 
                         fnUpdate(location);
                     }
