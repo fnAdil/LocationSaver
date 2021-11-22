@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.Manifest;
 import android.content.Intent;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -102,9 +103,11 @@ public class MainActivity extends AppCompatActivity {
             if (intent!=null){
                 latitude = Double.valueOf(intent.getStringExtra("latutide"));
                 longitude = Double.valueOf(intent.getStringExtra("longitude"));
+
                 Log.e("latitude: ",latitude+"");
                 Log.e("longitude: ",longitude+"");
 
+                Toast.makeText(getApplicationContext(), "Lokasyon: "+latitude+"--"+longitude, Toast.LENGTH_SHORT).show();
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                 SimpleDateFormat shape = new SimpleDateFormat("y/M/d h:m:s");
