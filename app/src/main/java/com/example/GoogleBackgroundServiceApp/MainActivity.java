@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
             if (intent!=null){
                 latitude = Double.valueOf(intent.getStringExtra("latutide"));
                 longitude = Double.valueOf(intent.getStringExtra("longitude"));
-                Log.e("latitude: ",location.getLatitude()+"");
-                Log.e("longitude: ",location.getLongitude()+"");
+                Log.e("latitude: ",latitude+"");
+                Log.e("longitude: ",longitude+"");
 
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
